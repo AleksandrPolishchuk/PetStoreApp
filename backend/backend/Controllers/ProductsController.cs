@@ -1,4 +1,6 @@
 ﻿using backend.Context;
+using backend.Dtos;
+using backend.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,9 +21,18 @@ namespace backend.Controllers
 
 		// Create
 		[HttpPost]
-		public async Task<IActionResult> CreateProduct([])
+		public async Task<IActionResult> CreateProduct([FromBody] CreateUpdateProductDto dto)
 		{
-			return null;
+			var newProduct = new ProductEntity()
+			{
+				Brand = dto.Brand,
+				Title = dto.Title,
+			};
+
+			await _context.Products.AddAsync(newProduct);
+			await _context.SaveChangesAsync();
+
+			return Ok("Product Saved Successfully");
 		}
 			
 		// Read
