@@ -18,7 +18,12 @@ namespace backend.Controllers
 		// CRUD -> Create - Read - Update - Delete
 
 		// Create
-
+		[HttpPost]
+		public async Task<IActionResult> CreateProduct([])
+		{
+			return null;
+		}
+			
 		// Read
 
 		// Update
