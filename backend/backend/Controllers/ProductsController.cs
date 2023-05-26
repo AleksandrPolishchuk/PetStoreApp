@@ -40,7 +40,7 @@ namespace backend.Controllers
 		[HttpGet]
 		public async Task<ActionResult<List<ProductEntity>>> GetAllProducts()
 		{
-			var products = _context.Products.ToListAsync();
+			var products = await _context.Products.ToListAsync();
 
 			return Ok(products);
 		}
@@ -73,6 +73,7 @@ namespace backend.Controllers
 
 			product.Title = dto.Title;
 			product.Brand = dto.Brand;
+			product.UpdatedAt = DateTime.Now;
 
 			await _context.SaveChangesAsync();
 
