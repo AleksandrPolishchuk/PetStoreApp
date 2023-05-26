@@ -59,8 +59,25 @@ namespace backend.Controllers
 			return Ok(product);
 		}
 
-
 		// Update
+		[HttpPut]
+		[Route("{id}")]
+		public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] CreateUpdateProductDto dto)
+		{
+			var product = await _context.Products.FirstOrDefaultAsync(q => q.Id == id);
+
+			if (product is null)
+			{
+				return NotFound("Product Not Found");
+			}
+
+			product.Title = dto.Title;
+			product.Brand = dto.Brand;
+
+			await _context.SaveChangesAsync();
+
+			return Ok("Product Updated Successfully");
+		}
 
 		// Delete
 	}
