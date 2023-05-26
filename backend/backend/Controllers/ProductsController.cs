@@ -40,7 +40,7 @@ namespace backend.Controllers
 		[HttpGet]
 		public async Task<ActionResult<List<ProductEntity>>> GetAllProducts()
 		{
-			var products = _context.Products.ToListAsync();
+			var products = await _context.Products.ToListAsync();
 
 			return Ok(products);
 		}
@@ -59,9 +59,43 @@ namespace backend.Controllers
 			return Ok(product);
 		}
 
-
 		// Update
+		[HttpPut]
+		[Route("{id}")]
+		public async Task<IActionResult> UpdateProduct([FromRoute] long id, [FromBody] CreateUpdateProductDto dto)
+		{
+			var product = await _context.Products.FirstOrDefaultAsync(q => q.Id == id);
+
+			if (product is null)
+			{
+				return NotFound("Product Not Found");
+			}
+
+			product.Title = dto.Title;
+			product.Brand = dto.Brand;
+			product.UpdatedAt = DateTime.Now;
+
+			await _context.SaveChangesAsync();
+
+			return Ok("Product Updated Successfully");
+		}
 
 		// Delete
+		[HttpDelete]
+		[Route("{id}")]
+		public async Task<IActionResult> DeleteProduct([FromRoute] long id)
+		{
+			var product = await _context.Products.FirstOrDefaultAsync(q => q.Id == id);
+
+			if (product is null)
+			{
+				return NotFound("Product Not Found");
+			}
+
+			_context.Products.Remove(product);
+			await _context.SaveChangesAsync();
+
+			return Ok("Product Deleted Successfully");
+		}
 	}
 }
