@@ -1,10 +1,11 @@
 import React from "react";
+import Navbar from "./components/navbar/Navbar";
 
 const App = () => {
   return (
     <div>
       {/* Navbar */}
-      {/* <NavBar /> */}
+      <Navbar />
 
       {/* Wrapper */}
       <div className="wrapper">{/* // Routes */}</div>
