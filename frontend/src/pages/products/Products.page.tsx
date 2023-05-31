@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./products.scss";
+import { IProduct } from "../../types/global.typing";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   return (
     <div className="products">
       <h1>Products List</h1>
