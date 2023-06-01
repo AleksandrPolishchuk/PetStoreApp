@@ -10,8 +10,17 @@ const Products = () => {
   const fetchProductsList = async () => {
     try {
       const response = await axios.get<IProduct[]>(baseUrl);
-    } catch (error) {}
+      setProducts(response.data);
+    } catch (error) {
+      alert("An Error Happend");
+    }
   };
+
+  useEffect(() => {
+    fetchProductsList();
+  }, []);
+
+  console.log(products);
 
   return (
     <div className="products">
