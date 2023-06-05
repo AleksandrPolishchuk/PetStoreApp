@@ -5,6 +5,7 @@ import { IProduct } from "../../types/global.typing";
 import { baseUrl } from "../../constants/url.constant";
 import { Button } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
+import moment from "moment";
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -46,8 +47,8 @@ const Products = () => {
                 <tr key={product.id}>
                   <td>{product.title}</td>
                   <td>{product.brand}</td>
-                  <td>{product.createdAt}</td>
-                  <td>{product.updatedAt}</td>
+                  <td>{moment(product.createdAt).fromNow()}</td>
+                  <td>{moment(product.updatedAt).fromNow()}</td>
                   <td>
                     <Button variant="outlined" color="warning" sx={{ mx: 3 }}>
                       <Edit />
