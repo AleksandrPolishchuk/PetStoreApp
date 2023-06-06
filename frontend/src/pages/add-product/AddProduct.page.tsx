@@ -23,6 +23,7 @@ const AddProduct = () => {
         autoComplete="off"
         label="Brand"
         variant="outlined"
+        name="brand"
         value={product.brand}
         onChange={changeHandler}
       />
@@ -30,6 +31,7 @@ const AddProduct = () => {
         autoComplete="off"
         label="Title"
         variant="outlined"
+        name="title"
         value={product.title}
         onChange={changeHandler}
       />
