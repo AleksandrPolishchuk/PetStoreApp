@@ -31,7 +31,24 @@ const EditProduct = () => {
     );
   }, []);
 
-  const handleSaveBtnClick = () => {};
+  const handleSaveBtnClick = () => {
+    if (product.title === "" || product.brand === "") {
+      alert("Enter Values");
+      return;
+    }
+    const data: Partial<IProduct> = {
+      brand: product.brand,
+      title: product.title,
+    };
+    axios
+      .put(`${baseUrl}/${id}`, data)
+      .then((response) =>
+        redirect("/products", {
+          state: { message: "Product Updated Successfully" },
+        })
+      )
+      .catch((error) => alert("Error"));
+  };
 
   const handleBackBtnClick = () => {};
 
