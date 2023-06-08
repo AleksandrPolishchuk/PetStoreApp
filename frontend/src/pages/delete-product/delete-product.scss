@@ -1,0 +1,5 @@
+@import "../../mixins";
+
+.delete-product {
+  @include main-style();
+}
