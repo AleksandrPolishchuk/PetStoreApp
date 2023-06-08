@@ -6,9 +6,14 @@ import { baseUrl } from "../../constants/url.constant";
 import { Button } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import moment from "moment";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const location = useLocation();
+  const redirect = useNavigate();
+
+  console.log(location);
 
   const fetchProductsList = async () => {
     try {
