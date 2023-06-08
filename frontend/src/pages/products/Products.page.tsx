@@ -38,6 +38,14 @@ const Products = () => {
 
   // console.log(products);
 
+  const redirectToEditPage = (id: string) => {
+    redirect(`/products/edit/${id}`);
+  };
+
+  const redirectToDeletePage = (id: string) => {
+    redirect(`/products/delete/${id}`);
+  };
+
   return (
     <div className="products">
       <h1>Products List</h1>
@@ -63,10 +71,19 @@ const Products = () => {
                   <td>{moment(product.createdAt).fromNow()}</td>
                   <td>{moment(product.updatedAt).fromNow()}</td>
                   <td>
-                    <Button variant="outlined" color="warning" sx={{ mx: 3 }}>
+                    <Button
+                      variant="outlined"
+                      color="warning"
+                      sx={{ mx: 3 }}
+                      onClick={() => redirectToEditPage(product.id)}
+                    >
                       <Edit />
                     </Button>
-                    <Button variant="outlined" color="error">
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => redirectToDeletePage(product.id)}
+                    >
                       <Delete />
                     </Button>
                   </td>
