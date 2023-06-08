@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import moment from "moment";
 import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -19,6 +20,13 @@ const Products = () => {
     try {
       const response = await axios.get<IProduct[]>(baseUrl);
       setProducts(response.data);
+      if (location?.state) {
+        Swal.fire({
+          icon: "success",
+          title: location?.state?.message,
+        });
+        redirect(location.pathname, { replace: true });
+      }
     } catch (error) {
       alert("An Error Happend");
     }
