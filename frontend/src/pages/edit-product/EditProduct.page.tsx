@@ -50,7 +50,9 @@ const EditProduct = () => {
       .catch((error) => alert("Error"));
   };
 
-  const handleBackBtnClick = () => {};
+  const handleBackBtnClick = () => {
+    redirect("/products");
+  };
 
   return (
     <div className="edit-product">
