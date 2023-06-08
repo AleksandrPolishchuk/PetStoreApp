@@ -6,14 +6,27 @@ import { baseUrl } from "../../constants/url.constant";
 import { Button } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import moment from "moment";
+import { useNavigate, useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const location = useLocation();
+  const redirect = useNavigate();
+
+  console.log(location);
 
   const fetchProductsList = async () => {
     try {
       const response = await axios.get<IProduct[]>(baseUrl);
       setProducts(response.data);
+      if (location?.state) {
+        Swal.fire({
+          icon: "success",
+          title: location?.state?.message,
+        });
+        redirect(location.pathname, { replace: true });
+      }
     } catch (error) {
       alert("An Error Happend");
     }
@@ -24,6 +37,14 @@ const Products = () => {
   }, []);
 
   // console.log(products);
+
+  const redirectToEditPage = (id: string) => {
+    redirect(`/products/edit/${id}`);
+  };
+
+  const redirectToDeletePage = (id: string) => {
+    redirect(`/products/delete/${id}`);
+  };
 
   return (
     <div className="products">
@@ -50,10 +71,19 @@ const Products = () => {
                   <td>{moment(product.createdAt).fromNow()}</td>
                   <td>{moment(product.updatedAt).fromNow()}</td>
                   <td>
-                    <Button variant="outlined" color="warning" sx={{ mx: 3 }}>
+                    <Button
+                      variant="outlined"
+                      color="warning"
+                      sx={{ mx: 3 }}
+                      onClick={() => redirectToEditPage(product.id)}
+                    >
                       <Edit />
                     </Button>
-                    <Button variant="outlined" color="error">
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => redirectToDeletePage(product.id)}
+                    >
                       <Delete />
                     </Button>
                   </td>
